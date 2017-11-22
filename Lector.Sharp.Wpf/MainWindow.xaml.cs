@@ -495,8 +495,8 @@ namespace Lector.Sharp.Wpf
         /// </summary>
         /// <param name="browser"></param>
         private void CloseWindowBrowser(BrowserWindow browser)
-        {            
-            SystemCommands.CloseWindow(browser);
+        {
+            browser.Hide();
         }
 
         /// <summary>
