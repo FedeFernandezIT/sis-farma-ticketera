@@ -51,6 +51,12 @@ namespace Lector.Sharp.Wpf.Services
                 var pathDatabseCatalog = Path.Combine(dir, ConfigurationManager.AppSettings["Database.Catalog"]);
                 DatabaseCatalog = new StreamReader(pathDatabseCatalog).ReadLine();
 
+                var pathShutdownServer = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Server"]);
+                ShutdownServer = new StreamReader(pathShutdownServer).ReadLine();
+
+                var pathShutdownDatabase = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Database"]);
+                ShutdownDatabase = new StreamReader(pathShutdownDatabase).ReadLine();
+
                 // Único archivo que puede no existir
                 var pathMostradorVc = Path.Combine(dir, ConfigurationManager.AppSettings["Mostrador.Vc"]);                                
                 Mostrador = File.Exists(pathMostradorVc) ? new StreamReader(pathMostradorVc).ReadLine() : "1";                
