@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WebBrowserExtensions.cs" />
+    <Compile Include="Helpers\RawPrinter.cs" />
     <Compile Include="LowLevelWindowsListener.cs" />
     <Compile Include="Models\HoraMinutos.cs" />
     <Compile Include="Models\ShutdownContext.cs" />
@@ -246,9 +247,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Lector.Sharp.ClickOnce\Lector.Sharp.ClickOnce.csproj">
       <Project>{92ED77B3-4A65-46FF-BAF0-5FB0749723B2}</Project>

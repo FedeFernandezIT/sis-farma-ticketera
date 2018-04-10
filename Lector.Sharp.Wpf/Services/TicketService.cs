@@ -8,8 +8,10 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Lector.Sharp.Wpf.Helpers;
 
 namespace Lector.Sharp.Wpf.Services
 {    
@@ -58,7 +60,13 @@ namespace Lector.Sharp.Wpf.Services
         }
         
         public void PrintInside()
-        {            
+        {
+            const string asterics = "*****************************************************";
+            const string line = "_____________________________________________________";
+            const string please = "Por favor espere su turno";
+            const string lblNumber = "SU NÚMERO ES";
+            const string lblDate = "Fecha:";
+
             try
             {                                
                 using (var db = new TicketContext(TicketServer, TicketDatabase))
@@ -73,16 +81,34 @@ namespace Lector.Sharp.Wpf.Services
                                 .ToList();
                             if (result.Count > 0)
                             {
-                                var turno = result[0].IdTurno;
+                                var turnoId = result[0].IdTurno;
                                 sql = @"update turnos set ticketImpreso ='1' WHERE idturno = @turno";
                                 db.Database.ExecuteSqlCommand(sql,
-                                    new MySqlParameter("turno", turno));
+                                    new MySqlParameter("turno", turnoId));
                                 sql = @"SELECT texto From ticket WHERE visible = '1'  Order by orden ASC";
                                 result[0].Textos = db.Database.SqlQuery<string>(sql).ToList();
                                 trans.Commit();
-                                
-                                var printer = new PrintDocument();
-                                printer.PrintPage += (sender, e) => PrintPage(sender, e, result[0]);                                
+
+                                var turno = result[0];
+                                var printer = new RawPrinter();
+                                printer.SetAlign(RawPrinter.Align.Center);
+                                printer.DrawLine(RawPrinter.SizeH1 + asterics);
+                                printer.DrawLine(RawPrinter.SizeH2 + turno.IdTurno);
+                                printer.DrawLine(RawPrinter.SizeH2 + lblNumber);
+                                printer.DrawLine(RawPrinter.SizeH4 + turno.Letra + turno.Numero);
+                                printer.DrawLine(RawPrinter.SizeH4 + turno.Letra + turno.Numero);
+                                printer.DrawLine(asterics);
+                                printer.DrawLine(RawPrinter.SizeH1 + asterics);
+                                printer.DrawLine(RawPrinter.SizeH1 + please);
+                                printer.DrawLine(RawPrinter.SizeH1 + lblDate + " " + turno.Fecha);
+                                printer.DrawLine(RawPrinter.SizeH1 + line);
+                                foreach (var txt in turno.Textos)
+                                {
+                                    printer.DrawLine(RawPrinter.SizeH1 + txt);
+                                }
+
+                                printer.BarCodeModelA("14159265");
+                                printer.BarCodeModelB("14159265");
                                 printer.Print();                                
                             }
                             trans.Rollback();
@@ -145,5 +171,7 @@ namespace Lector.Sharp.Wpf.Services
                 currentY += font.GetHeight(e.Graphics);
             }
         }        
-    }
+    }    
 }
+//Testing above code
+
