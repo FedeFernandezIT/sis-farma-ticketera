@@ -27,19 +27,19 @@ namespace Lector.Sharp.Wpf.Helpers
         [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
 
-        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool EndDocPrinter(IntPtr hPrinter);
 
-        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool StartPagePrinter(IntPtr hPrinter);
 
-        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool EndPagePrinter(IntPtr hPrinter);
 
-        [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
 
-        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("winspool.drv", CharSet = CharSet.Ansi, SetLastError = true)]
         private static extern bool GetDefaultPrinter(StringBuilder pszBuffer, ref int size);
 
         #endregion
@@ -125,6 +125,11 @@ namespace Lector.Sharp.Wpf.Helpers
             // Assume that the printer is expecting ANSI text, and then convert
             // the string to ANSI text.
             pBytes = Marshal.StringToCoTaskMemAnsi(szString);
+
+            // Assume that the printer is expecting ANSI text, and then convert
+            // the string to Unicode text.
+            //pBytes = Marshal.StringToCoTaskMemUni(szString);
+
             // Send the converted ANSI string to the printer.
             SendBytesToPrinter(szPrinterName, pBytes, dwCount);
             Marshal.FreeCoTaskMem(pBytes);
@@ -170,51 +175,52 @@ namespace Lector.Sharp.Wpf.Helpers
 
         public string NormalizeCharacters(string text)
         {
-            text = text.Replace('Á', (char)181).Replace("&Aacute;", Convert.ToString((char)181))
-                .Replace('á', (char)160).Replace("&aacute;", Convert.ToString((char)160))
-                .Replace('À', (char)183).Replace("&Agrave;", Convert.ToString((char)181))
-                .Replace('à', (char)133).Replace("&agrave;", Convert.ToString((char)133))
-                .Replace('Ä', (char)142).Replace("&Auml;", Convert.ToString((char)142))
-                .Replace('ä', (char)132).Replace("&auml;", Convert.ToString((char)132))
+            text = text.Replace('Á', 'A').Replace("&Aacute;", "A")
+                .Replace('á', 'a').Replace("&aacute;", "a")
+                .Replace('À', 'A').Replace("&Agrave;", "A")
+                .Replace('à', 'a').Replace("&agrave;", "a")
+                .Replace('Ä', 'A').Replace("&Auml;", "A")
+                .Replace('ä', 'a').Replace("&auml;", "a")
 
-                .Replace('É', (char)144).Replace("&Eacute;", Convert.ToString((char)144))
-                .Replace('é', (char)130).Replace("&eacute;", Convert.ToString((char)130))
-                .Replace('È', (char)212).Replace("&Egrave;", Convert.ToString((char)212))
-                .Replace('è', (char)138).Replace("&egrave;", Convert.ToString((char)138))
-                .Replace('Ë', (char)211).Replace("&Euml;", Convert.ToString((char)211))
-                .Replace('ë', (char)137).Replace("&euml;", Convert.ToString((char)137))
+                .Replace('É', 'E').Replace("&Eacute;", "E")
+                .Replace('é', 'e').Replace("&eacute;", "e")
+                .Replace('È', 'E').Replace("&Egrave;", "E")
+                .Replace('è', 'e').Replace("&egrave;", "e")
+                .Replace('Ë', 'E').Replace("&Euml;", "E")
+                .Replace('ë', 'e').Replace("&euml;", "e")
 
-                .Replace('Í', (char)214).Replace("&Iacute;", Convert.ToString((char)214))
-                .Replace('í', (char)161).Replace("&iacute;", Convert.ToString((char)161))
-                .Replace('Ì', (char)222).Replace("&Igrave;", Convert.ToString((char)222))
-                .Replace('ì', (char)141).Replace("&igrave;", Convert.ToString((char)141))
-                .Replace('Ï', (char)216).Replace("&Iuml;", Convert.ToString((char)216))
-                .Replace('ï', (char)139).Replace("&iuml;", Convert.ToString((char)139))
+                .Replace('Í', 'I').Replace("&Iacute;", "I")
+                .Replace('í', 'i').Replace("&iacute;", "i")
+                .Replace('Ì', 'I').Replace("&Igrave;", "I")
+                .Replace('ì', 'i').Replace("&igrave;", "i")
+                .Replace('Ï', 'I').Replace("&Iuml;", "I")
+                .Replace('ï', 'i').Replace("&iuml;", "i")
 
-                .Replace('Ó', (char)224).Replace("&Oacute;", Convert.ToString((char)224))
-                .Replace('ó', (char)162).Replace("&oacute;", Convert.ToString((char)162))
-                .Replace('Ò', (char)227).Replace("&Ograve;", Convert.ToString((char)227))
-                .Replace('ò', (char)149).Replace("&ograve;", Convert.ToString((char)149))
-                .Replace('Ö', (char)153).Replace("&Ouml;", Convert.ToString((char)153))
-                .Replace('ö', (char)148).Replace("&ouml;", Convert.ToString((char)148))
+                .Replace('Ó', 'O').Replace("&Oacute;", "O")
+                .Replace('ó', 'o').Replace("&oacute;", "o")
+                .Replace('Ò', 'O').Replace("&Ograve;", "O")
+                .Replace('ò', 'o').Replace("&ograve;", "o")
+                .Replace('Ö', 'O').Replace("&Ouml;", "O")
+                .Replace('ö', 'o').Replace("&ouml;", "o")
 
-                .Replace('Ú', (char)233).Replace("&Uacute;", Convert.ToString((char)233))
-                .Replace('ú', (char)163).Replace("&uacute;", Convert.ToString((char)163))
-                .Replace('Ù', (char)235).Replace("&Ugrave;", Convert.ToString((char)235))
-                .Replace('ù', (char)151).Replace("&ugrave;", Convert.ToString((char)151))
-                .Replace('Ü', (char)154).Replace("&Uuml;", Convert.ToString((char)154))
-                .Replace('ü', (char)129).Replace("&uuml;", Convert.ToString((char)129))
+                .Replace('Ú', 'U').Replace("&Uacute;", "U")
+                .Replace('ú', 'u').Replace("&uacute;", "u")
+                .Replace('Ù', 'U').Replace("&Ugrave;", "U")
+                .Replace('ù', 'u').Replace("&ugrave;", "u")
+                .Replace('Ü', 'U').Replace("&Uuml;", "U")
+                .Replace('ü', 'u').Replace("&uuml;", "u")
 
-                .Replace('Ñ', (char)165).Replace("&Ntilde;", Convert.ToString((char)165))
-                .Replace('ñ', (char)164).Replace("&ntilde;", Convert.ToString((char)164))
+                .Replace('Ñ', 'N').Replace("&Ntilde;", "N")
+                .Replace('ñ', 'n').Replace("&ntilde;", "n")
 
-                .Replace('Ç', (char)128).Replace("&Ccedil;", Convert.ToString((char)128))
-                .Replace('ç', (char)135).Replace("&ccedil;", Convert.ToString((char)135))
+                .Replace('Ç', 'C').Replace("&Ccedil;", "C")
+                .Replace('ç', 'c').Replace("&ccedil;", "c")
 
-                .Replace('€', (char)213).Replace("&euro;", Convert.ToString((char)213))
+                .Replace('€', 'E').Replace("&euro;", "E")
 
-                .Replace('º', (char)167).Replace("&ordm;", Convert.ToString((char)167))
-                .Replace('ª', (char)166).Replace("&ordf;", Convert.ToString((char)166));
+                .Replace('º', '#').Replace("&ordm;", "#")
+                .Replace('ª', '#').Replace("&ordf;", "#");
+
             return text;
         }
 
@@ -327,6 +333,7 @@ namespace Lector.Sharp.Wpf.Helpers
         public void Print()
         {
             string text = Initialize + Text + CutPaper;
+            text = NormalizeCharacters(text);
             SendStringToPrinter(PrinterName, text);
         }
 
