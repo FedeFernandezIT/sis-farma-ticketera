@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Información" Loaded="winBrowser_Loaded" Unloaded="winBrowser_Unloaded" WindowStartupLocation="CenterScreen" Closed="winBrowser_Closed" Icon="sisfarma-logo.ico" WindowStyle="ToolWindow" SourceInitialized="WinBrowser_SourceInitialized" ResizeMode="NoResize" WindowState="Maximized">
+        Title="Información" Loaded="winBrowser_Loaded" Unloaded="winBrowser_Unloaded" WindowStartupLocation="CenterScreen" Closed="winBrowser_Closed" Icon="sisfarma-logo.ico" WindowStyle="None" SourceInitialized="WinBrowser_SourceInitialized" ResizeMode="NoResize" WindowState="Maximized">
     <Grid>
         <WebBrowser x:Name="Browser"/>
 

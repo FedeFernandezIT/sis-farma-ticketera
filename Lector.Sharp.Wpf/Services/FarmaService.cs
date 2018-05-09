@@ -36,30 +36,30 @@ namespace Lector.Sharp.Wpf.Services
                 var pathPresentation = Path.Combine(dir, ConfigurationManager.AppSettings["Presentation.Url"]);
                 Presentation = new StreamReader(pathPresentation).ReadLine();
 
-                var pathUrlInformacionRemoto = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Informacion.Remoto"]);
-                Url = new StreamReader(pathUrlInformacionRemoto).ReadLine();
+                //var pathUrlInformacionRemoto = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Informacion.Remoto"]);
+                //Url = new StreamReader(pathUrlInformacionRemoto).ReadLine();
 
-                var pathUrlMensajesRemoto = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Mensajes.Remoto"]);
-                UrlMensajes = new StreamReader(pathUrlMensajesRemoto).ReadLine();
+                //var pathUrlMensajesRemoto = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Mensajes.Remoto"]);
+                //UrlMensajes = new StreamReader(pathUrlMensajesRemoto).ReadLine();
 
-                var pathUrlCustom = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Custom"]);
-                UrlNavegarCustom = new StreamReader(pathUrlCustom).ReadLine();
+                //var pathUrlCustom = Path.Combine(dir, ConfigurationManager.AppSettings["Url.Custom"]);
+                //UrlNavegarCustom = new StreamReader(pathUrlCustom).ReadLine();
                 
-                var pathDatabaseServer = Path.Combine(dir, ConfigurationManager.AppSettings["Database.Server"]);
-                DatabaseServer = new StreamReader(pathDatabaseServer).ReadLine();
+                //var pathDatabaseServer = Path.Combine(dir, ConfigurationManager.AppSettings["Database.Server"]);
+                //DatabaseServer = new StreamReader(pathDatabaseServer).ReadLine();
 
-                var pathDatabseCatalog = Path.Combine(dir, ConfigurationManager.AppSettings["Database.Catalog"]);
-                DatabaseCatalog = new StreamReader(pathDatabseCatalog).ReadLine();
+                //var pathDatabseCatalog = Path.Combine(dir, ConfigurationManager.AppSettings["Database.Catalog"]);
+                //DatabaseCatalog = new StreamReader(pathDatabseCatalog).ReadLine();
 
-                var pathShutdownServer = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Server"]);
-                ShutdownServer = new StreamReader(pathShutdownServer).ReadLine();
+                //var pathShutdownServer = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Server"]);
+                //ShutdownServer = new StreamReader(pathShutdownServer).ReadLine();
 
-                var pathShutdownDatabase = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Database"]);
-                ShutdownDatabase = new StreamReader(pathShutdownDatabase).ReadLine();
+                //var pathShutdownDatabase = Path.Combine(dir, ConfigurationManager.AppSettings["Shutdown.Database"]);
+                //ShutdownDatabase = new StreamReader(pathShutdownDatabase).ReadLine();
 
-                // Único archivo que puede no existir
-                var pathMostradorVc = Path.Combine(dir, ConfigurationManager.AppSettings["Mostrador.Vc"]);                                
-                Mostrador = File.Exists(pathMostradorVc) ? new StreamReader(pathMostradorVc).ReadLine() : "1";                
+                //// Único archivo que puede no existir
+                //var pathMostradorVc = Path.Combine(dir, ConfigurationManager.AppSettings["Mostrador.Vc"]);                                
+                //Mostrador = File.Exists(pathMostradorVc) ? new StreamReader(pathMostradorVc).ReadLine() : "1";                
 
             } catch (IOException ex)
             {

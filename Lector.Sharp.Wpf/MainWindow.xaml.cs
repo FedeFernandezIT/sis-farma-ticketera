@@ -161,18 +161,18 @@ namespace Lector.Sharp.Wpf
                 InitializeTicketTimer();
                 InitializeShutdownTimer();
 
-                //OpenWindowPresentation(_presentationBrowser, "http://www.google.com.ar");                
+                OpenWindowPresentation(_presentationBrowser, _service.Presentation);                
 
-                _processChrome = new Process();                
-                _processChrome.StartInfo.FileName = @"chrome.exe";
-                _processChrome.StartInfo.Arguments = $@"--kiosk --fullscreen --app={_service.Presentation}";                
-                _processChrome.Start();
-                _processChrome.WaitForInputIdle(1000);
-                _processChrome.Refresh();
-                SetParent(_processChrome.MainWindowHandle, new WindowInteropHelper(this).Handle);                
-                SetWindowPos(_processChrome.MainWindowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-                SetForegroundWindow(_processChrome.Handle);
-                _processChrome.Refresh();
+                //_processChrome = new Process();                
+                //_processChrome.StartInfo.FileName = @"chrome.exe";
+                //_processChrome.StartInfo.Arguments = $@"--kiosk --fullscreen --app={_service.Presentation}";                
+                //_processChrome.Start();
+                //_processChrome.WaitForInputIdle(1000);
+                //_processChrome.Refresh();
+                //SetParent(_processChrome.MainWindowHandle, new WindowInteropHelper(this).Handle);                
+                //SetWindowPos(_processChrome.MainWindowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+                //SetForegroundWindow(_processChrome.Handle);
+                //_processChrome.Refresh();
             }
             catch (IOException ex)
             {

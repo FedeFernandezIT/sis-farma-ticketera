@@ -26,16 +26,16 @@ namespace Lector.Sharp.Wpf.Services
         {
             try
             {
-                var dir = ConfigurationManager.AppSettings["Directory.Setup"];
+                //var dir = ConfigurationManager.AppSettings["Directory.Setup"];
 
-                var pathTicketTerminal = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Terminal"]);
-                TicketTerminal = new StreamReader(pathTicketTerminal).ReadLine();
+                //var pathTicketTerminal = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Terminal"]);
+                //TicketTerminal = new StreamReader(pathTicketTerminal).ReadLine();
 
-                var pathTicketServer = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Server"]);
-                TicketServer = new StreamReader(pathTicketServer).ReadLine();
+                //var pathTicketServer = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Server"]);
+                //TicketServer = new StreamReader(pathTicketServer).ReadLine();
 
-                var pathTicketDatabase = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Database"]);
-                TicketDatabase = new StreamReader(pathTicketDatabase).ReadLine();
+                //var pathTicketDatabase = Path.Combine(dir, ConfigurationManager.AppSettings["Ticket.Database"]);
+                //TicketDatabase = new StreamReader(pathTicketDatabase).ReadLine();
             }
             catch (IOException ex)
             {
